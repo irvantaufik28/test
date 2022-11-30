@@ -46,12 +46,12 @@ class Test {
   }
 
 
- async _insertMissingData(c, i) {
-   let result = await this._mergeSortArray(c, i)
+ _insertMissingData(c, i) {
+   let result = this._mergeSortArray(c, i)
     return result;
   }
 
- async main() {
+ main() {
     console.log("START");
 
     const a = [11, 36, 65, 135, 98];
@@ -63,9 +63,9 @@ class Test {
 
     const c = this._mergeSortArray(a, b);
     const i = this._getMissingData(c);
-    const final_result = await this._insertMissingData(c, i);
+    const final_result = this._insertMissingData(c, i);
 
-    console.log("RESULT : ", final_result);
+    console.dir("RESULT : ", final_result);
   }
 }
 
