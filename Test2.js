@@ -24,34 +24,37 @@ class Test {
     for (let i = 0; i < b.length; i++) {
       a.push(b[i]);
     }
-    for (let j = 0; j < a.length -1; j++) {
-        if (a[j] > a[j + 1]) {
-            let temp = a[j]
-            a[j] = a[j + 1]
-            a[j + 1] = temp
-            j = -1
-        }
+    for (let j = 0; j < a.length - 1; j++) {
+      if (a[j] > a[j + 1]) {
+        let temp = a[j];
+        a[j] = a[j + 1];
+        a[j + 1] = temp;
+        j = -1;
+      }
     }
     return a;
   }
 
   _getMissingData(c) {
-    let missingNum = []
-    for (let i = c[0]; i < c[c.length-1]; i++) {
+    return new Promise((resolve) => {
+      let missingNum = [];
+      for (let i = c[0]; i < c[c.length - 1]; i++) {
         if (c.indexOf(i) === -1) {
-            missingNum.push(i)
+          missingNum.push(i);
         }
-    }
-    return missingNum;
+      }
+      resolve(missingNum);
+    });
   }
 
-
- _insertMissingData(c, i) {
-   let result = this._mergeSortArray(c, i)
-    return result;
+  _insertMissingData(c, i) {
+    return new Promise((resolve) => {
+      let result = this._mergeSortArray(c, i);
+      resolve(result);
+    });
   }
 
- main() {
+  async main() {
     console.log("START");
 
     const a = [11, 36, 65, 135, 98];
@@ -62,10 +65,12 @@ class Test {
     b.push(155);
 
     const c = this._mergeSortArray(a, b);
-    const i = this._getMissingData(c);
-    const final_result = this._insertMissingData(c, i);
+    const i = await this._getMissingData(c);
 
-    console.dir("RESULT : ", final_result);
+    const final_result = await this._insertMissingData(c, i);
+
+    console.log("RESULT : ");
+    console.dir(final_result, { maxArrayLength: null });
   }
 }
 
